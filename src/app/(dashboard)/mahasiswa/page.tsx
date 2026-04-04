@@ -1,10 +1,26 @@
+"use client"
+
 import DashboardHeader from '@/components/dashboard/dashboard-header'
 import TableMahasiswa from '@/components/dashboard/table-mahasiswa'
+import { getMahasiswa } from '@/libs/apis/mahasiswa'
+import { Mahasiswa } from '@/libs/types/mahasiswa'
 import { Search } from '@mui/icons-material'
 import { FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function MahasiswaPage() {
+  const [mahasiswa, setMahasiswa] = useState<Mahasiswa[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    setLoading(true)
+
+    getMahasiswa({ page: 1, perPage: 10 })
+      .then((res) => setMahasiswa(res.data))
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
+
   return (
     <section className="space-y-5">
       <DashboardHeader
@@ -38,7 +54,7 @@ export default function MahasiswaPage() {
         </FormControl>
       </div>
 
-      <TableMahasiswa />
+      <TableMahasiswa data={mahasiswa} loading={loading} />
 
     </section>
   )

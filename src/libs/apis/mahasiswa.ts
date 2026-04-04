@@ -1,4 +1,4 @@
-import { GetMahasiswaParams, GetMahasiswaResult, Mahasiswa } from "../types/mahasiswa";
+import { CreateMahasiswaDTO, GetMahasiswaParams, GetMahasiswaResult, Mahasiswa, UpdateMahasiswaDTO } from "../types/mahasiswa";
 
 const BASE_URL = '/api/mahasiswa'
 
@@ -22,5 +22,36 @@ export async function getMahasiswaById(
   id: number
 ): Promise<{ success: boolean; data?: Mahasiswa; message?: string }> {
   const res = await fetch(`${BASE_URL}/${id}`);
+  return res.json();
+}
+
+export async function createMahasiswa(
+  dto: CreateMahasiswaDTO
+): Promise<{ success: boolean; message: string; data?: Mahasiswa }> {
+  const res = await fetch(BASE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dto),
+  });
+  return res.json();
+}
+
+export async function updateMahasiswa(
+  id: number,
+  dto: UpdateMahasiswaDTO
+): Promise<{ success: boolean; message: string; data?: Mahasiswa }> {
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dto),
+  });
+  return res.json();
+}
+
+
+export async function deleteMahasiswa(
+  id: number
+): Promise<{ success: boolean; message: string }> {
+  const res = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
   return res.json();
 }

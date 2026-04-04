@@ -5,115 +5,122 @@ const theme = createTheme({
     mode: 'light',
 
     primary: {
-      main: 'rgb(30, 157, 241)',
-      contrastText: 'rgb(255, 255, 255)',
+      main: '#1e9df1',
+      contrastText: '#ffffff',
     },
-
     secondary: {
-      main: 'rgb(15, 20, 25)',
-      contrastText: 'rgb(255, 255, 255)',
+      main: '#0f1419',
+      contrastText: '#ffffff',
     },
-
     error: {
-      main: 'rgb(244, 33, 46)',
-      contrastText: 'rgb(255, 255, 255)',
+      main: '#f4212e',
+      contrastText: '#ffffff',
     },
 
     background: {
-      default: 'rgb(255, 255, 255)',
-      paper: 'rgb(247, 248, 248)',
+      default: '#ffffff',
+      paper: '#f7f8f8',
     },
 
     text: {
-      primary: 'rgb(15, 20, 25)',
-      secondary: 'rgb(15, 20, 25)',
+      primary: '#0f1419',
+      secondary: '#536471',
     },
 
-    divider: 'rgb(225, 234, 239)',
+    divider: '#e1e8ed',
   },
 
   typography: {
-    fontFamily: `'Open Sans', sans-serif`,
-
-    h1: {
-      fontWeight: 700,
-    },
-    h2: {
-      fontWeight: 600,
-    },
-    h3: {
-      fontWeight: 600,
-    },
-
-    body1: {
-      fontSize: '1rem',
-    },
-
+    fontFamily: 'var(--font-sans)',
     button: {
       textTransform: 'none',
     },
   },
 
   shape: {
-    borderRadius: 20, // dari --radius: 1.3rem (~20px)
+    borderRadius: 12, // fallback
   },
-
-  spacing: 4, // dari --spacing: 0.25rem
 
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: 'rgb(255, 255, 255)',
-          color: 'rgb(15, 20, 25)',
+          backgroundColor: 'var(--background)',
+          color: 'var(--foreground)',
         },
       },
     },
 
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: 'rgb(247, 248, 248)',
-        },
-      },
-    },
-
+    // 🔥 CARD
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgb(247, 248, 248)',
-          border: '1px solid rgb(225, 234, 239)',
-          borderRadius: 20,
-          boxShadow: 'none', // sesuai token lu (shadow = 0)
+          backgroundColor: 'var(--card)',
+          color: 'var(--card-foreground)',
+          border: '1px solid var(--border)',
+          borderRadius: 'var(--radius)',
+          boxShadow: 'var(--shadow-sm)',
         },
       },
     },
 
+    // 🔥 PAPER (buat modal, menu, dll)
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'var(--card)',
+        },
+      },
+    },
+
+    // 🔥 BUTTON (override total pakai var)
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 999, // biar pill style kayak modern UI
-          padding: '8px 16px',
+          borderRadius: '12px',
+          padding: '10px 16px',
+          fontWeight: 500,
+        },
+
+        containedPrimary: {
+          backgroundColor: 'var(--primary)',
+          color: 'var(--primary-foreground)',
+          '&:hover': {
+            backgroundColor: 'var(--primary)',
+            opacity: 0.9,
+          },
+        },
+
+        containedSecondary: {
+          backgroundColor: 'var(--secondary)',
+          color: 'var(--secondary-foreground)',
+        },
+
+        containedError: {
+          backgroundColor: 'var(--destructive)',
+          color: 'var(--destructive-foreground)',
         },
       },
     },
 
+    // 🔥 INPUT
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgb(247, 249, 250)', // --input
-          borderRadius: 999,
-        },
-        notchedOutline: {
-          borderColor: 'rgb(225, 234, 239)',
+          backgroundColor: 'var(--input)',
+          borderRadius: '12px',
         },
       },
     },
 
-    MuiDivider: {
+    // 🔥 APP BAR
+    MuiAppBar: {
       styleOverrides: {
         root: {
-          borderColor: 'rgb(225, 234, 239)',
+          backgroundColor: 'var(--background)',
+          color: 'var(--foreground)',
+          borderBottom: '1px solid var(--border)',
+          boxShadow: 'none',
         },
       },
     },

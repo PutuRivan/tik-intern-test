@@ -6,11 +6,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <main className="flex-1 bg-background p-6">
-        {children}
-      </main>
+      <div className="flex flex-col flex-1">
+        {/* pt-14 only on mobile to account for hamburger bar */}
+        <main className="flex-1 p-6 pt-20 lg:pt-6">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

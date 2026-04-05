@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const PUBLIC_ROUTES = ['/login', '/register'];
-const PROTECTED_PREFIX = ['/dashboard', '/mahasiswa'];
+const PROTECTED_PREFIX = ['/dashboard', '/mahasiswa', '/profile'];
 
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;

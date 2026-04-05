@@ -235,10 +235,10 @@
       "nim": "2310511129",
       "nama": "Putu Rivan",
       "email": "rivanputu55@gmail.com",
-      "jurusan": "Informatika",
+      "jurusan": "Sistem Informasi",
       "tanggal_lahir": "",
       "created_at": "2026-04-05T03:14:17.509Z",
-      "updated_at": "2026-04-05T03:14:17.509Z"
+      "updated_at": "2026-04-05T18:03:19.317Z"
     }
   ],
   "users": [
@@ -271,6 +271,14 @@
       "name": "Putu Rivan",
       "email": "puturivana.d@gmail.com",
       "password": "$2b$10$jtH3znWGWhHgeajydVHXAO6qhq0Cg2Sk5T7PVNFS/BS4l9gmyidmO",
+      "is_active": true,
+      "register_date": "2026-04-05"
+    },
+    {
+      "id": 5,
+      "name": "Anggana",
+      "email": "rivanputu55@gmail.com",
+      "password": "$2b$10$YhAxM.fxwPhc.Y.bqY5eOuPOTJYM4ciHmvT50yK/ERPy/C5QDRwIG",
       "is_active": true,
       "register_date": "2026-04-05"
     }

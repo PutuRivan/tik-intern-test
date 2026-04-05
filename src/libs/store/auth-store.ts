@@ -5,8 +5,6 @@ import { AuthUser } from '@/libs/types/user';
 interface AuthState {
   user: AuthUser | null;
   isAuthenticated: boolean;
-
-  // Actions
   setUser: (user: AuthUser) => void;
   clearUser: () => void;
 }
@@ -17,22 +15,19 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isAuthenticated: false,
 
-      setUser: (user) =>
-        set({
-          user,
-          isAuthenticated: true,
-        }),
+      setUser: (user) => {
+        // ✅ No cookie logic here — handled in auth.ts via API
+        set({ user, isAuthenticated: true });
+      },
 
-      clearUser: () =>
-        set({
-          user: null,
-          isAuthenticated: false,
-        }),
+      clearUser: () => {
+        // ✅ No cookie logic here — handled in auth.ts via API
+        set({ user: null, isAuthenticated: false });
+      },
     }),
     {
-      name: 'auth-storage', // key in localStorage
+      name: 'auth-storage',
       partialize: (state) => ({
-        // Only persist user, not actions
         user: state.user,
         isAuthenticated: state.isAuthenticated,
       }),

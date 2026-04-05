@@ -1,9 +1,13 @@
 'use client';
 
 import DashboardHeader from '@/components/dashboard/dashboard-header';
+import { logout } from '@/libs/apis/auth';
 import { useAuthStore } from '@/libs/store/auth-store';
 import { PersonRounded } from '@mui/icons-material';
-import { Card, CardContent, Chip, Divider } from '@mui/material';
+import { Button, Card, CardContent, Chip, Divider } from '@mui/material';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function ProfileRow({ label, value }: { label: string; value: string }) {
   return (
@@ -16,7 +20,15 @@ function ProfileRow({ label, value }: { label: string; value: string }) {
 
 export default function ProfilePage() {
   const user = useAuthStore((s) => s.user);
+  const router = useRouter();
 
+  const handleLogout = () => {
+    logout();
+    toast.success('Berhasil keluar.');
+    setTimeout(() => {
+      router.push('/login');
+    }, 100);
+  };
   return (
     <section className="space-y-5">
       <DashboardHeader
@@ -24,7 +36,7 @@ export default function ProfilePage() {
         description="Informasi akun pengguna"
       />
 
-      <Card className="max-w-xl">
+      <Card>
         <CardContent sx={{ p: 3 }}>
           {/* Avatar */}
           <div className="flex items-center gap-4 mb-4">
@@ -53,6 +65,18 @@ export default function ProfilePage() {
               label="Status Akun"
               value={user?.is_active ? 'Aktif' : 'Tidak Aktif'}
             />
+          </div>
+
+
+          <div className='flex justify-end w-full mt-10'>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleLogout}
+            >
+              <LogoutIcon fontSize="small" />
+              <span className="font-medium text-sm">Keluar</span>
+            </Button>
           </div>
         </CardContent>
       </Card>

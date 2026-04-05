@@ -6,13 +6,11 @@ import { useState } from 'react';
 import { useAuthStore } from '@/libs/store/auth-store';
 import { logout } from '@/libs/apis/auth';
 import toast from 'react-hot-toast';
-
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupIcon from '@mui/icons-material/Group';
 import SchoolIcon from '@mui/icons-material/School';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import { Divider, IconButton } from '@mui/material';
 
@@ -23,15 +21,7 @@ const menu = [
 
 function SidebarContent({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
-  const router = useRouter();
   const user = useAuthStore((s) => s.user);
-
-  const handleLogout = () => {
-    logout();
-    toast.success('Berhasil keluar.');
-    router.replace('/login');
-    onClose?.();
-  };
 
   const isProfileActive = pathname.startsWith('/profile');
 
@@ -39,8 +29,8 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
     <div className="flex flex-col h-full">
       {/* HEADER */}
       <div className="flex items-center gap-3 px-5 py-4 border-b border-sidebar-border">
-        <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shrink-0">
-          <SchoolIcon fontSize="small" />
+        <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+          <SchoolIcon fontSize="small" className='text-white' />
         </div>
         <div>
           <p className="font-semibold text-sidebar-foreground">Sistem Mahasiswa</p>
@@ -91,17 +81,17 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
         {/* Profile link */}
         <Link href="/profile" onClick={onClose}>
           <div
-            className={`
-              flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer transition-all mb-1
-              ${isProfileActive
+            className={`flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer transition-all mb-1
+            ${isProfileActive
                 ? 'bg-primary text-primary-foreground'
                 : 'text-sidebar-foreground hover:bg-sidebar-accent'
               }
-            `}
+              `}
+
           >
             {/* Avatar */}
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white shrink-0">
-              <span className="text-sm font-bold">
+            <div className={`aspect-square w-10 rounded-full ${isProfileActive ? "bg-white" : "bg-primary"} flex items-center justify-center shrink-0`}>
+              <span className={`text-sm font-bold ${isProfileActive ? "text-primary" : "text-white"}`}>
                 {user?.name?.charAt(0).toUpperCase() ?? <PersonIcon fontSize="small" />}
               </span>
             </div>
@@ -112,15 +102,6 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
             </div>
           </div>
         </Link>
-
-        {/* Logout button */}
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-full cursor-pointer transition-all text-red-500 hover:bg-red-50"
-        >
-          <LogoutIcon fontSize="small" />
-          <span className="font-medium text-sm">Keluar</span>
-        </button>
       </div>
     </div>
   );

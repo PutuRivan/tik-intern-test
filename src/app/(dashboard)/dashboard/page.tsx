@@ -4,25 +4,30 @@ import { useEffect, useState } from "react";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import StatsCard from "@/components/dashboard/stats-card";
 import TableMahasiswa from "@/components/dashboard/table-mahasiswa";
-import { getMahasiswa } from "@/libs/apis/mahasiswa";
+import { getAllMahasiswa, getMahasiswa, getRecentMahasiswa } from "@/libs/apis/mahasiswa";
 import type { Jurusan, Mahasiswa } from "@/libs/types/mahasiswa";
 import { PeopleAltRounded } from "@mui/icons-material";
 import { getJurusanColorHex, getJurusanIcon, JURUSAN_LIST } from "@/libs/mapper/jurusan-mapper";
 
 export default function DashboardPage() {
   const [mahasiswa, setMahasiswa] = useState<Mahasiswa[]>([]);
+  const [recentMahasiswa, setRecentMahasiswa] = useState<Mahasiswa[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
 
-    getMahasiswa({ page: 1, perPage: 5 })
-      .then((res) => setMahasiswa(res.data))
+    Promise.all([
+      getAllMahasiswa(),
+      getRecentMahasiswa(5),
+    ])
+      .then(([all, recent]) => {
+        setMahasiswa(all ?? []);
+        setRecentMahasiswa(recent ?? []);
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
-
-  const recentMahasiswa = [...mahasiswa].reverse().slice(0, 5);
 
   const totalByJurusan = JURUSAN_LIST.reduce(
     (acc, jurusan) => ({

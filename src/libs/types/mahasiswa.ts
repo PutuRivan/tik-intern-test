@@ -29,6 +29,7 @@ export interface GetMahasiswaParams {
   page?: number
   perPage?: number
   search?: string
+  jurusan?: string
 }
 
 export interface GetMahasiswaResult {

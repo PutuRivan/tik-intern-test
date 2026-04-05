@@ -25,15 +25,21 @@ export async function getMahasiswa({
   page = 1,
   perPage = 10,
   search = '',
+  jurusan = ''
 }: GetMahasiswaParams): Promise<GetMahasiswaResult> {
   // json-server uses _page, _per_page, and q for search
   const params = new URLSearchParams({
     _page: String(page),
     _per_page: String(perPage),
+    
   });
 
   if (search.trim()) {
     params.append('q', search); // json-server full-text search
+  }
+
+  if (jurusan.trim()) {
+    params.append('jurusan', jurusan);
   }
 
   const res = await fetch(`${BASE_URL}?${params}`);

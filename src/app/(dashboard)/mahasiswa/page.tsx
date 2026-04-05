@@ -38,6 +38,7 @@ export default function MahasiswaPage() {
         page: page + 1, // API is 1-based
         perPage: rowsPerPage,
         search,
+        jurusan
       });
       setMahasiswa(res.data);
       setTotal(res.total);
@@ -46,7 +47,7 @@ export default function MahasiswaPage() {
     } finally {
       setLoading(false);
     }
-  }, [page, rowsPerPage, search]);
+  }, [page, rowsPerPage, search, jurusan]);
 
   useEffect(() => {
     fetchData();

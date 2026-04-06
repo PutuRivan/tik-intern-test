@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { login } from '@/libs/apis/auth';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { login } from "@/libs/apis/auth";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   CircularProgress,
@@ -9,12 +9,12 @@ import {
   InputAdornment,
   Stack,
   TextField,
-} from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import type { LoginDTO } from '@/libs/types/user';
+} from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import type { LoginDTO } from "@/libs/types/user";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginDTO>({
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: "", password: "" },
   });
 
   const onSubmit = async (data: LoginDTO) => {
@@ -37,7 +37,7 @@ export default function LoginForm() {
     }
 
     toast.success(result.message);
-    router.push('/dashboard');
+    router.push("/dashboard");
   };
 
   return (
@@ -47,10 +47,10 @@ export default function LoginForm() {
           name="email"
           control={control}
           rules={{
-            required: 'Email wajib diisi.',
+            required: "Email wajib diisi.",
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: 'Format email tidak valid.',
+              message: "Format email tidak valid.",
             },
           }}
           render={({ field }) => (
@@ -70,13 +70,13 @@ export default function LoginForm() {
         <Controller
           name="password"
           control={control}
-          rules={{ required: 'Password wajib diisi.' }}
+          rules={{ required: "Password wajib diisi." }}
           render={({ field }) => (
             <TextField
               {...field}
               label="Password"
               placeholder="Masukkan password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               fullWidth
               required
               error={!!errors.password}
@@ -102,10 +102,11 @@ export default function LoginForm() {
           disabled={isSubmitting}
           sx={{ py: 1.5, fontWeight: 600 }}
         >
-          {isSubmitting
-            ? <CircularProgress size={22} color="inherit" />
-            : 'Masuk'
-          }
+          {isSubmitting ? (
+            <CircularProgress size={22} color="inherit" />
+          ) : (
+            "Masuk"
+          )}
         </Button>
       </Stack>
     </form>

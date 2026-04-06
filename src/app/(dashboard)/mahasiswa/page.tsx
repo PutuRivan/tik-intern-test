@@ -1,11 +1,6 @@
-'use client';
+"use client";
 
-import DashboardHeader from '@/components/dashboard/dashboard-header';
-import TableMahasiswa from '@/components/dashboard/table-mahasiswa';
-import { deleteMahasiswa, getMahasiswa } from '@/libs/apis/mahasiswa';
-import { JURUSAN_LIST } from '@/libs/mapper/jurusan-mapper';
-import type { Mahasiswa } from '@/libs/types/mahasiswa';
-import { Add, Search } from '@mui/icons-material';
+import { Add, Search } from "@mui/icons-material";
 import {
   Button,
   FormControl,
@@ -14,17 +9,22 @@ import {
   MenuItem,
   Select,
   TextField,
-} from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+} from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import DashboardHeader from "@/components/dashboard/dashboard-header";
+import TableMahasiswa from "@/components/dashboard/table-mahasiswa";
+import { deleteMahasiswa, getMahasiswa } from "@/libs/apis/mahasiswa";
+import { JURUSAN_LIST } from "@/libs/mapper/jurusan-mapper";
+import type { Mahasiswa } from "@/libs/types/mahasiswa";
 
 export default function MahasiswaPage() {
   const router = useRouter();
 
   const [mahasiswa, setMahasiswa] = useState<Mahasiswa[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [search, setSearch] = useState('');
-  const [jurusan, setJurusan] = useState('');
+  const [search, setSearch] = useState("");
+  const [jurusan, setJurusan] = useState("");
 
   // Pagination state — MUI TablePagination uses 0-based page index
   const [page, setPage] = useState(0);
@@ -38,7 +38,7 @@ export default function MahasiswaPage() {
         page: page + 1, // API is 1-based
         perPage: rowsPerPage,
         search,
-        jurusan
+        jurusan,
       });
       setMahasiswa(res.data);
       setTotal(res.total);
@@ -78,14 +78,13 @@ export default function MahasiswaPage() {
   };
 
   return (
-    <section className="space-y-5">
+    <section className="min-w-0 space-y-5">
       <DashboardHeader
         title="Mahasiswa"
         description="Kelola seluruh data mahasiswa terdaftar"
       />
 
-      {/* Toolbar */}
-      <div className="flex flex-row w-full gap-4">
+      <div className="flex w-full min-w-0 flex-col gap-4 lg:flex-row lg:items-center">
         <TextField
           placeholder="Cari berdasarkan NIM atau email..."
           value={search}
@@ -98,10 +97,16 @@ export default function MahasiswaPage() {
             ),
           }}
           size="small"
-          className="flex-1"
+          className="w-full lg:flex-1"
         />
 
-        <FormControl size="small" sx={{ minWidth: '160px' }}>
+        <FormControl
+          size="small"
+          sx={{
+            width: { xs: "100%", sm: "220px", lg: "180px" },
+            flexShrink: 0,
+          }}
+        >
           <InputLabel id="jurusan-filter">Jurusan</InputLabel>
           <Select
             labelId="jurusan-filter"
@@ -111,7 +116,9 @@ export default function MahasiswaPage() {
           >
             <MenuItem value="">Semua Jurusan</MenuItem>
             {JURUSAN_LIST.map((j) => (
-              <MenuItem key={j} value={j}>{j}</MenuItem>
+              <MenuItem key={j} value={j}>
+                {j}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -119,14 +126,18 @@ export default function MahasiswaPage() {
         <Button
           variant="contained"
           startIcon={<Add />}
-          onClick={() => router.push('/mahasiswa/tambah')}
-          sx={{ fontWeight: 600, whiteSpace: 'nowrap' }}
+          onClick={() => router.push("/mahasiswa/tambah")}
+          sx={{
+            fontWeight: 600,
+            whiteSpace: "nowrap",
+            width: { xs: "100%", sm: "auto" },
+            flexShrink: 0,
+          }}
         >
           Tambah Mahasiswa
         </Button>
       </div>
 
-      {/* Table with pagination */}
       <TableMahasiswa
         data={mahasiswa}
         loading={loading}

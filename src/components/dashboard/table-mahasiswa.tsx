@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
-import { Delete, Edit, Visibility } from '@mui/icons-material';
+import { Delete, Edit, Visibility } from "@mui/icons-material";
 import {
+  Button,
   Card,
   CardContent,
   Chip,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -21,13 +23,11 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  Button,
-  CircularProgress,
-} from '@mui/material';
-import type { Mahasiswa } from '@/libs/types/mahasiswa';
-import { useRouter } from 'next/navigation';
-import { getJurusanColorMui } from '@/libs/mapper/jurusan-mapper';
-import { useState } from 'react';
+} from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { getJurusanColorMui } from "@/libs/mapper/jurusan-mapper";
+import type { Mahasiswa } from "@/libs/types/mahasiswa";
 
 interface TableMahasiswaProps {
   data: Mahasiswa[];
@@ -73,15 +73,25 @@ export default function TableMahasiswa({
     <>
       <Card>
         <CardContent>
-          <TableContainer>
-            <Table>
+          <TableContainer sx={{ overflowX: "auto" }}>
+            <Table sx={{ minWidth: 720 }}>
               <TableHead>
-                <TableRow sx={{ bgcolor: 'grey.50' }}>
-                  <TableCell sx={{ fontWeight: 600 }} align="center">NIM</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }} align="center">Nama</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }} align="center">Email</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }} align="center">Jurusan</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }} align="center">Aksi</TableCell>
+                <TableRow sx={{ bgcolor: "grey.50" }}>
+                  <TableCell sx={{ fontWeight: 600 }} align="center">
+                    NIM
+                  </TableCell>
+                  <TableCell sx={{ fontWeight: 600 }} align="center">
+                    Nama
+                  </TableCell>
+                  <TableCell sx={{ fontWeight: 600 }} align="center">
+                    Email
+                  </TableCell>
+                  <TableCell sx={{ fontWeight: 600 }} align="center">
+                    Jurusan
+                  </TableCell>
+                  <TableCell sx={{ fontWeight: 600 }} align="center">
+                    Aksi
+                  </TableCell>
                 </TableRow>
               </TableHead>
 
@@ -119,7 +129,9 @@ export default function TableMahasiswa({
                             <IconButton
                               size="small"
                               color="info"
-                              onClick={() => router.push(`/mahasiswa/${mahasiswa.id}`)}
+                              onClick={() =>
+                                router.push(`/mahasiswa/${mahasiswa.id}`)
+                              }
                             >
                               <Visibility fontSize="small" />
                             </IconButton>
@@ -128,7 +140,9 @@ export default function TableMahasiswa({
                             <IconButton
                               size="small"
                               color="primary"
-                              onClick={() => router.push(`/mahasiswa/${mahasiswa.id}/edit`)}
+                              onClick={() =>
+                                router.push(`/mahasiswa/${mahasiswa.id}/edit`)
+                              }
                             >
                               <Edit fontSize="small" />
                             </IconButton>
@@ -156,6 +170,14 @@ export default function TableMahasiswa({
                 <TableFooter>
                   <TableRow>
                     <TablePagination
+                      sx={{
+                        "& .MuiTablePagination-toolbar": {
+                          flexWrap: "wrap",
+                          justifyContent: "flex-end",
+                          gap: 1,
+                          px: { xs: 1, sm: 2 },
+                        },
+                      }}
                       count={total}
                       page={page}
                       rowsPerPage={rowsPerPage}
@@ -196,10 +218,11 @@ export default function TableMahasiswa({
             variant="contained"
             disabled={deleteLoading}
           >
-            {deleteLoading
-              ? <CircularProgress size={18} color="inherit" />
-              : 'Hapus'
-            }
+            {deleteLoading ? (
+              <CircularProgress size={18} color="inherit" />
+            ) : (
+              "Hapus"
+            )}
           </Button>
         </DialogActions>
       </Dialog>

@@ -1,56 +1,54 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useAuthStore } from '@/libs/store/auth-store';
-import { logout } from '@/libs/apis/auth';
-import toast from 'react-hot-toast';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import GroupIcon from '@mui/icons-material/Group';
-import SchoolIcon from '@mui/icons-material/School';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import PersonIcon from '@mui/icons-material/Person';
-import { Divider, IconButton } from '@mui/material';
+import CloseIcon from "@mui/icons-material/Close";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import GroupIcon from "@mui/icons-material/Group";
+import MenuIcon from "@mui/icons-material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
+import SchoolIcon from "@mui/icons-material/School";
+import { Divider, IconButton } from "@mui/material";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { useAuthStore } from "@/libs/store/auth-store";
 
 const menu = [
-  { label: 'Dashboard', href: '/dashboard', icon: DashboardIcon },
-  { label: 'Mahasiswa', href: '/mahasiswa', icon: GroupIcon },
+  { label: "Dashboard", href: "/dashboard", icon: DashboardIcon },
+  { label: "Mahasiswa", href: "/mahasiswa", icon: GroupIcon },
 ];
 
 function SidebarContent({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
   const user = useAuthStore((s) => s.user);
 
-  const isProfileActive = pathname.startsWith('/profile');
+  const isProfileActive = pathname.startsWith("/profile");
 
   return (
-    <div className="flex flex-col h-full">
-      {/* HEADER */}
-      <div className="flex items-center gap-3 px-5 py-4 border-b border-sidebar-border">
-        <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
-          <SchoolIcon fontSize="small" className='text-white' />
+    <div className="flex h-full flex-col">
+      <div className="flex items-center gap-3 border-b border-sidebar-border px-5 py-4">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary">
+          <SchoolIcon fontSize="small" className="text-white" />
         </div>
-        <div>
-          <p className="font-semibold text-sidebar-foreground">Sistem Mahasiswa</p>
+        <div className="min-w-0">
+          <p className="font-semibold text-sidebar-foreground">
+            Sistem Mahasiswa
+          </p>
           <p className="text-sm text-muted-foreground">Manajemen Data</p>
         </div>
 
-        {/* Close button — mobile only */}
         {onClose && (
           <IconButton
             onClick={onClose}
             size="small"
-            className="ml-auto lg:hidden"
+            className="ml-auto xl:hidden"
+            aria-label="Tutup menu navigasi"
           >
             <CloseIcon fontSize="small" />
           </IconButton>
         )}
       </div>
 
-      {/* MENU */}
-      <nav className="flex flex-col gap-1 px-3 py-4 flex-1">
+      <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
         {menu.map((item) => {
           const isActive = pathname.startsWith(item.href);
           const Icon = item.icon;
@@ -58,13 +56,11 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
           return (
             <Link key={item.href} href={item.href} onClick={onClose}>
               <div
-                className={`
-                  flex items-center gap-3 px-4 py-3 rounded-full cursor-pointer transition-all
-                  ${isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-sidebar-foreground hover:bg-sidebar-accent'
-                  }
-                `}
+                className={`flex items-center gap-3 rounded-full px-4 py-3 transition-all ${
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent"
+                }`}
               >
                 <Icon fontSize="small" />
                 <span className="font-medium">{item.label}</span>
@@ -74,31 +70,38 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
         })}
       </nav>
 
-      {/* PROFILE SECTION */}
       <div className="px-3 pb-4">
         <Divider sx={{ mb: 2 }} />
 
-        {/* Profile link */}
         <Link href="/profile" onClick={onClose}>
           <div
-            className={`flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer transition-all mb-1
-            ${isProfileActive
-                ? 'bg-primary text-primary-foreground'
-                : 'text-sidebar-foreground hover:bg-sidebar-accent'
-              }
-              `}
-
+            className={`mb-1 flex items-center gap-3 rounded-2xl px-4 py-3 transition-all ${
+              isProfileActive
+                ? "bg-primary text-primary-foreground"
+                : "text-sidebar-foreground hover:bg-sidebar-accent"
+            }`}
           >
-            {/* Avatar */}
-            <div className={`aspect-square w-10 rounded-full ${isProfileActive ? "bg-white" : "bg-primary"} flex items-center justify-center shrink-0`}>
-              <span className={`text-sm font-bold ${isProfileActive ? "text-primary" : "text-white"}`}>
-                {user?.name?.charAt(0).toUpperCase() ?? <PersonIcon fontSize="small" />}
+            <div
+              className={`flex aspect-square w-10 shrink-0 items-center justify-center rounded-full ${
+                isProfileActive ? "bg-white" : "bg-primary"
+              }`}
+            >
+              <span
+                className={`text-sm font-bold ${isProfileActive ? "text-primary" : "text-white"}`}
+              >
+                {user?.name?.charAt(0).toUpperCase() ?? (
+                  <PersonIcon fontSize="small" />
+                )}
               </span>
             </div>
 
-            <div className="flex-1 min-w-0">
-              <p className="font-semibold text-sm truncate">{user?.name ?? 'User'}</p>
-              <p className="text-xs text-muted-foreground truncate">{user?.email ?? ''}</p>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold">
+                {user?.name ?? "User"}
+              </p>
+              <p className="truncate text-xs text-muted-foreground">
+                {user?.email ?? ""}
+              </p>
             </div>
           </div>
         </Link>
@@ -112,38 +115,38 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* ── DESKTOP SIDEBAR ── */}
-      <aside className="hidden lg:flex w-[260px] h-screen bg-sidebar border-r border-sidebar-border flex-col sticky top-0">
+      <aside className="sticky top-0 hidden h-screen w-[260px] flex-col border-r border-sidebar-border bg-sidebar xl:flex">
         <SidebarContent />
       </aside>
 
-      {/* ── MOBILE HAMBURGER BUTTON ── */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 flex items-center px-4 py-3 bg-white border-b border-gray-200">
-        <IconButton onClick={() => setMobileOpen(true)}>
-          <MenuIcon />
-        </IconButton>
-        <div className="flex items-center gap-2 ml-2">
-          <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-white">
+      <div className="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-sidebar-border bg-white px-4 py-3 xl:hidden">
+        <div className="flex min-w-0 items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-white">
             <SchoolIcon sx={{ fontSize: 16 }} />
           </div>
-          <span className="font-semibold text-sm">Sistem Mahasiswa</span>
+          <span className="truncate text-sm font-semibold">
+            Sistem Mahasiswa
+          </span>
         </div>
+
+        <IconButton
+          onClick={() => setMobileOpen(true)}
+          aria-label="Buka menu navigasi"
+        >
+          <MenuIcon />
+        </IconButton>
       </div>
 
-      {/* ── MOBILE DRAWER OVERLAY ── */}
       {mobileOpen && (
-        <div
-          className="lg:hidden fixed inset-0 z-50 flex"
-          onClick={() => setMobileOpen(false)}
-        >
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/40" />
+        <div className="fixed inset-0 z-50 flex xl:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Tutup menu navigasi"
+          />
 
-          {/* Drawer */}
-          <aside
-            className="relative w-[260px] h-full bg-sidebar border-r border-sidebar-border flex flex-col z-10"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <aside className="relative ml-auto flex h-full w-[260px] max-w-[85vw] flex-col border-l border-sidebar-border bg-sidebar shadow-xl">
             <SidebarContent onClose={() => setMobileOpen(false)} />
           </aside>
         </div>

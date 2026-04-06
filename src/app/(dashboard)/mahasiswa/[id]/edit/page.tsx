@@ -1,36 +1,45 @@
-"use client"
+"use client";
 
-import DashboardHeader from '@/components/dashboard/dashboard-header'
-import { getMahasiswaById, updateMahasiswa } from '@/libs/apis/mahasiswa'
-import { JURUSAN_LIST } from '@/libs/mapper/jurusan-mapper';
-import { Mahasiswa, UpdateMahasiswaDTO } from '@/libs/types/mahasiswa'
-import { Alert, Button, Card, CardContent, CircularProgress, Divider, MenuItem, TextField } from '@mui/material';
-import { useParams, useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import {
+  Alert,
+  Button,
+  Card,
+  CardContent,
+  CircularProgress,
+  Divider,
+  MenuItem,
+  TextField,
+} from "@mui/material";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import DashboardHeader from "@/components/dashboard/dashboard-header";
+import { getMahasiswaById, updateMahasiswa } from "@/libs/apis/mahasiswa";
+import { JURUSAN_LIST } from "@/libs/mapper/jurusan-mapper";
+import type { Mahasiswa, UpdateMahasiswaDTO } from "@/libs/types/mahasiswa";
 
 export default function EditMahasiswaPage() {
-  const { id } = useParams<{ id: string }>()
-  const router = useRouter()
-  const [serverError, setServerError] = useState('')
-  const [mahasiswa, setMahasiswa] = useState<Mahasiswa | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [notFound, setNotFound] = useState(false)
+  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const [serverError, setServerError] = useState("");
+  const [mahasiswa, setMahasiswa] = useState<Mahasiswa | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
 
     getMahasiswaById(Number(id))
       .then((res) => {
         if (res.success && res.data) {
-          setMahasiswa(res.data)
+          setMahasiswa(res.data);
         } else {
-          setNotFound(true)
+          setNotFound(true);
         }
       })
       .catch(() => setNotFound(true))
-      .finally(() => setLoading(false))
-  }, [id])
+      .finally(() => setLoading(false));
+  }, [id]);
 
   const {
     control,
@@ -39,60 +48,60 @@ export default function EditMahasiswaPage() {
     formState: { errors, isSubmitting },
   } = useForm<UpdateMahasiswaDTO>({
     defaultValues: {
-      nim: '',
-      nama: '',
-      email: '',
-      jurusan: 'Informatika',
-      tanggal_lahir: '',
+      nim: "",
+      nama: "",
+      email: "",
+      jurusan: "Informatika",
+      tanggal_lahir: "",
     },
-  })
+  });
 
   useEffect(() => {
-    if (!mahasiswa) return
+    if (!mahasiswa) return;
 
     reset({
       nim: mahasiswa.nim,
       nama: mahasiswa.nama,
       email: mahasiswa.email,
       jurusan: mahasiswa.jurusan,
-      tanggal_lahir: mahasiswa.tanggal_lahir ?? '',
-    })
-  }, [mahasiswa, reset])
+      tanggal_lahir: mahasiswa.tanggal_lahir ?? "",
+    });
+  }, [mahasiswa, reset]);
 
   const onSubmit = async (data: UpdateMahasiswaDTO) => {
-    setServerError('')
+    setServerError("");
     try {
-      const result = await updateMahasiswa(Number(id), data)
+      const result = await updateMahasiswa(Number(id), data);
       if (!result.success) {
-        setServerError(result.message)
-        return
+        setServerError(result.message);
+        return;
       }
-      router.push('/mahasiswa')
+      router.push("/mahasiswa");
     } catch {
-      setServerError('Terjadi kesalahan. Silakan coba lagi.')
+      setServerError("Terjadi kesalahan. Silakan coba lagi.");
     }
-  }
+  };
 
   if (loading) {
     return (
-      <section className="space-y-5">
+      <section className="min-w-0 space-y-5">
         <DashboardHeader
           title="Edit Mahasiswa"
           description="Isi form berikut untuk edit data mahasiswa"
         />
 
-        <Card sx={{ Width: 640 }}>
+        <Card sx={{ width: "100%", maxWidth: 900 }}>
           <CardContent sx={{ p: 3 }} className="flex justify-center">
             <CircularProgress />
           </CardContent>
         </Card>
       </section>
-    )
+    );
   }
 
   if (notFound) {
     return (
-      <section className="space-y-5">
+      <section className="min-w-0 space-y-5">
         <DashboardHeader
           title="Edit Mahasiswa"
           description="Isi form berikut untuk edit data mahasiswa"
@@ -100,17 +109,17 @@ export default function EditMahasiswaPage() {
 
         <Alert severity="error">Data mahasiswa tidak ditemukan.</Alert>
       </section>
-    )
+    );
   }
 
   return (
-    <section className="space-y-5">
+    <section className="min-w-0 space-y-5">
       <DashboardHeader
         title="Edit Mahasiswa"
         description="Isi form berikut untuk edit data mahasiswa"
       />
 
-      <Card sx={{ Width: 640 }}>
+      <Card sx={{ width: "100%", maxWidth: 900 }}>
         <CardContent sx={{ p: 3 }}>
           {serverError && (
             <Alert severity="error" sx={{ mb: 3 }}>
@@ -119,24 +128,22 @@ export default function EditMahasiswaPage() {
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            {/* Nama & NIM */}
-            <div className="flex flex-row gap-5">
-              {/* Nama */}
-              <div className='flex-1'>
+            <div className="flex flex-col gap-5 md:flex-row">
+              <div className="flex-1">
                 <Controller
                   name="nama"
                   control={control}
                   rules={{
-                    required: 'Nama wajib diisi.',
+                    required: "Nama wajib diisi.",
                     minLength: {
                       value: 3,
-                      message: 'Nama minimal 3 karakter.',
+                      message: "Nama minimal 3 karakter.",
                     },
                   }}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      value={field.value ?? ''}
+                      value={field.value ?? ""}
                       label="Nama Lengkap"
                       fullWidth
                       required
@@ -147,22 +154,21 @@ export default function EditMahasiswaPage() {
                 />
               </div>
 
-              {/* NIM */}
-              <div className='flex-1'>
+              <div className="flex-1">
                 <Controller
                   name="nim"
                   control={control}
                   rules={{
-                    required: 'NIM wajib diisi.',
+                    required: "NIM wajib diisi.",
                     pattern: {
                       value: /^\d+$/,
-                      message: 'NIM hanya boleh berisi angka.',
+                      message: "NIM hanya boleh berisi angka.",
                     },
                   }}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      value={field.value ?? ''}
+                      value={field.value ?? ""}
                       label="NIM"
                       fullWidth
                       required
@@ -175,23 +181,22 @@ export default function EditMahasiswaPage() {
               </div>
             </div>
 
-            <div className="flex flex-row gap-5">
-              {/* Email */}
-              <div className='flex-1'>
+            <div className="flex flex-col gap-5 md:flex-row">
+              <div className="flex-1">
                 <Controller
                   name="email"
                   control={control}
                   rules={{
-                    required: 'Email wajib diisi.',
+                    required: "Email wajib diisi.",
                     pattern: {
                       value: /\S+@\S+\.\S+/,
-                      message: 'Format email tidak valid.',
+                      message: "Format email tidak valid.",
                     },
                   }}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      value={field.value ?? ''}
+                      value={field.value ?? ""}
                       label="Email"
                       type="email"
                       fullWidth
@@ -203,16 +208,15 @@ export default function EditMahasiswaPage() {
                 />
               </div>
 
-              {/* Jurusan */}
-              <div className='flex-1'>
+              <div className="flex-1">
                 <Controller
                   name="jurusan"
                   control={control}
-                  rules={{ required: 'Jurusan wajib dipilih.' }}
+                  rules={{ required: "Jurusan wajib dipilih." }}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      value={field.value ?? ''}
+                      value={field.value ?? ""}
                       select
                       label="Jurusan"
                       fullWidth
@@ -221,7 +225,9 @@ export default function EditMahasiswaPage() {
                       helperText={errors.jurusan?.message}
                     >
                       {JURUSAN_LIST.map((j) => (
-                        <MenuItem key={j} value={j}>{j}</MenuItem>
+                        <MenuItem key={j} value={j}>
+                          {j}
+                        </MenuItem>
                       ))}
                     </TextField>
                   )}
@@ -237,7 +243,7 @@ export default function EditMahasiswaPage() {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    value={field.value ?? ''}
+                    value={field.value ?? ""}
                     label="Tanggal Lahir"
                     type="date"
                     fullWidth
@@ -251,11 +257,13 @@ export default function EditMahasiswaPage() {
 
             <Divider sx={{ my: 3 }} />
 
-            <div className="flex justify-end gap-3">
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
               <Button
                 variant="outlined"
                 onClick={() => router.back()}
                 disabled={isSubmitting}
+                fullWidth
+                sx={{ width: { sm: "auto" } }}
               >
                 Batal
               </Button>
@@ -263,17 +271,19 @@ export default function EditMahasiswaPage() {
                 type="submit"
                 variant="contained"
                 disabled={isSubmitting}
-                sx={{ fontWeight: 600, minWidth: 120 }}
+                fullWidth
+                sx={{ fontWeight: 600, minWidth: 120, width: { sm: "auto" } }}
               >
-                {isSubmitting
-                  ? <CircularProgress size={20} color="inherit" />
-                  : 'Simpan'
-                }
+                {isSubmitting ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : (
+                  "Simpan"
+                )}
               </Button>
             </div>
           </form>
         </CardContent>
       </Card>
     </section>
-  )
+  );
 }

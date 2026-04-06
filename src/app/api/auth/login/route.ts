@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { success } = await req.json();
@@ -6,11 +6,11 @@ export async function POST(req: Request) {
   const res = NextResponse.json({ success: true });
 
   if (success) {
-    res.cookies.set('is_authenticated', 'true', {
+    res.cookies.set("is_authenticated", "true", {
       httpOnly: false,
-      path: '/',
+      path: "/",
       maxAge: 60 * 60 * 24 * 7, // 7 days
-      sameSite: 'lax',
+      sameSite: "lax",
     });
   }
 

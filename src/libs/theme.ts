@@ -1,39 +1,39 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
 
     primary: {
-      main: '#1e9df1',
-      contrastText: '#ffffff',
+      main: "#1e9df1",
+      contrastText: "#ffffff",
     },
     secondary: {
-      main: '#0f1419',
-      contrastText: '#ffffff',
+      main: "#0f1419",
+      contrastText: "#ffffff",
     },
     error: {
-      main: '#f4212e',
-      contrastText: '#ffffff',
+      main: "#f4212e",
+      contrastText: "#ffffff",
     },
 
     background: {
-      default: '#ffffff',
-      paper: '#f7f8f8',
+      default: "#ffffff",
+      paper: "#f7f8f8",
     },
 
     text: {
-      primary: '#0f1419',
-      secondary: '#536471',
+      primary: "#0f1419",
+      secondary: "#536471",
     },
 
-    divider: '#e1e8ed',
+    divider: "#e1e8ed",
   },
 
   typography: {
-    fontFamily: 'var(--font-sans)',
+    fontFamily: "var(--font-sans)",
     button: {
-      textTransform: 'none',
+      textTransform: "none",
     },
   },
 
@@ -45,8 +45,8 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: 'var(--background)',
-          color: 'var(--foreground)',
+          backgroundColor: "var(--background)",
+          color: "var(--foreground)",
         },
       },
     },
@@ -55,11 +55,11 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: 'var(--card)',
-          color: 'var(--card-foreground)',
-          border: '1px solid var(--border)',
-          borderRadius: 'var(--radius)',
-          boxShadow: 'var(--shadow-sm)',
+          backgroundColor: "var(--card)",
+          color: "var(--card-foreground)",
+          border: "1px solid var(--border)",
+          borderRadius: "var(--radius)",
+          boxShadow: "var(--shadow-sm)",
         },
       },
     },
@@ -68,7 +68,7 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: 'var(--card)',
+          backgroundColor: "var(--card)",
         },
       },
     },
@@ -77,28 +77,28 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '12px',
-          padding: '10px 16px',
+          borderRadius: "12px",
+          padding: "10px 16px",
           fontWeight: 500,
         },
 
         containedPrimary: {
-          backgroundColor: 'var(--primary)',
-          color: 'var(--primary-foreground)',
-          '&:hover': {
-            backgroundColor: 'var(--primary)',
+          backgroundColor: "var(--primary)",
+          color: "var(--primary-foreground)",
+          "&:hover": {
+            backgroundColor: "var(--primary)",
             opacity: 0.9,
           },
         },
 
         containedSecondary: {
-          backgroundColor: 'var(--secondary)',
-          color: 'var(--secondary-foreground)',
+          backgroundColor: "var(--secondary)",
+          color: "var(--secondary-foreground)",
         },
 
         containedError: {
-          backgroundColor: 'var(--destructive)',
-          color: 'var(--destructive-foreground)',
+          backgroundColor: "var(--destructive)",
+          color: "var(--destructive-foreground)",
         },
       },
     },
@@ -107,8 +107,8 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          backgroundColor: 'var(--input)',
-          borderRadius: '12px',
+          backgroundColor: "var(--input)",
+          borderRadius: "12px",
         },
       },
     },
@@ -117,10 +117,10 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: 'var(--background)',
-          color: 'var(--foreground)',
-          borderBottom: '1px solid var(--border)',
-          boxShadow: 'none',
+          backgroundColor: "var(--background)",
+          color: "var(--foreground)",
+          borderBottom: "1px solid var(--border)",
+          boxShadow: "none",
         },
       },
     },

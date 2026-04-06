@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { register } from '@/libs/apis/auth';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { register } from "@/libs/apis/auth";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   CircularProgress,
@@ -9,12 +9,12 @@ import {
   InputAdornment,
   Stack,
   TextField,
-} from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import type { RegisterDTO } from '@/libs/types/user';
+} from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import type { RegisterDTO } from "@/libs/types/user";
 
 interface RegisterForm extends RegisterDTO {
   confirmPassword: string;
@@ -32,15 +32,15 @@ export default function RegisterForm() {
     formState: { errors, isSubmitting },
   } = useForm<RegisterForm>({
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
   // Watch password for confirm password validation
-  const password = watch('password');
+  const password = watch("password");
 
   const onSubmit = async (data: RegisterForm) => {
     const result = await register({
@@ -55,7 +55,7 @@ export default function RegisterForm() {
     }
 
     toast.success(result.message);
-    router.push('/login');
+    router.push("/login");
   };
 
   return (
@@ -66,8 +66,8 @@ export default function RegisterForm() {
           name="name"
           control={control}
           rules={{
-            required: 'Nama wajib diisi.',
-            minLength: { value: 3, message: 'Nama minimal 3 karakter.' },
+            required: "Nama wajib diisi.",
+            minLength: { value: 3, message: "Nama minimal 3 karakter." },
           }}
           render={({ field }) => (
             <TextField
@@ -87,10 +87,10 @@ export default function RegisterForm() {
           name="email"
           control={control}
           rules={{
-            required: 'Email wajib diisi.',
+            required: "Email wajib diisi.",
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: 'Format email tidak valid.',
+              message: "Format email tidak valid.",
             },
           }}
           render={({ field }) => (
@@ -112,15 +112,15 @@ export default function RegisterForm() {
           name="password"
           control={control}
           rules={{
-            required: 'Password wajib diisi.',
-            minLength: { value: 6, message: 'Password minimal 6 karakter.' },
+            required: "Password wajib diisi.",
+            minLength: { value: 6, message: "Password minimal 6 karakter." },
           }}
           render={({ field }) => (
             <TextField
               {...field}
               label="Password"
               placeholder="Masukkan password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               fullWidth
               required
               error={!!errors.password}
@@ -143,16 +143,16 @@ export default function RegisterForm() {
           name="confirmPassword"
           control={control}
           rules={{
-            required: 'Konfirmasi password wajib diisi.',
+            required: "Konfirmasi password wajib diisi.",
             validate: (val) =>
-              val === password || 'Konfirmasi password tidak cocok.',
+              val === password || "Konfirmasi password tidak cocok.",
           }}
           render={({ field }) => (
             <TextField
               {...field}
               label="Konfirmasi Password"
               placeholder="Ulangi password"
-              type={showConfirm ? 'text' : 'password'}
+              type={showConfirm ? "text" : "password"}
               fullWidth
               required
               error={!!errors.confirmPassword}
@@ -178,10 +178,11 @@ export default function RegisterForm() {
           disabled={isSubmitting}
           sx={{ py: 1.5, fontWeight: 600 }}
         >
-          {isSubmitting
-            ? <CircularProgress size={22} color="inherit" />
-            : 'Daftar'
-          }
+          {isSubmitting ? (
+            <CircularProgress size={22} color="inherit" />
+          ) : (
+            "Daftar"
+          )}
         </Button>
       </Stack>
     </form>

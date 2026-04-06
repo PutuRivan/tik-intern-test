@@ -29,14 +29,14 @@ export async function getRecentMahasiswa(limit = 5): Promise<Mahasiswa[]> {
 
 export async function getMahasiswa({
   page = 1,
-  perPage = 10,
+  limit = 10,
   search = "",
   jurusan = "",
 }: GetMahasiswaParams): Promise<GetMahasiswaResult> {
   // json-server uses _page, _per_page, and q for search
   const params = new URLSearchParams({
     _page: String(page),
-    _per_page: String(perPage),
+    _limit: String(limit),
   });
 
   if (search.trim()) {
@@ -52,7 +52,7 @@ export async function getMahasiswa({
 
   const data: Mahasiswa[] = await res.json();
   const total = Number(res.headers.get("X-Total-Count") ?? 0);
-  const totalPages = Math.ceil(total / perPage);
+  const totalPages = Math.ceil(total / limit);
 
   // json-server v1 pagination response shape
   return {

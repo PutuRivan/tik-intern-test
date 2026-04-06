@@ -36,9 +36,9 @@ interface TableMahasiswaProps {
   withPagination?: boolean;
   total?: number;
   page?: number;
-  rowsPerPage?: number;
+  limit?: number;
   onPageChange?: (newPage: number) => void;
-  onRowsPerPageChange?: (newRowsPerPage: number) => void;
+  onlimitChange?: (newlimit: number) => void;
   // Delete prop — optional so dashboard doesn't need it
   onDelete?: (id: number) => void;
 }
@@ -49,9 +49,9 @@ export default function TableMahasiswa({
   withPagination = false,
   total = 0,
   page = 0,
-  rowsPerPage = 10,
+  limit = 10,
   onPageChange,
-  onRowsPerPageChange,
+  onlimitChange,
   onDelete,
 }: TableMahasiswaProps) {
   const router = useRouter();
@@ -180,11 +180,11 @@ export default function TableMahasiswa({
                       }}
                       count={total}
                       page={page}
-                      rowsPerPage={rowsPerPage}
+                      rowsPerPage={limit}
                       rowsPerPageOptions={[5, 10, 25, 50]}
                       onPageChange={(_, newPage) => onPageChange?.(newPage)}
                       onRowsPerPageChange={(e) =>
-                        onRowsPerPageChange?.(Number(e.target.value))
+                        onlimitChange?.(Number(e.target.value))
                       }
                       labelRowsPerPage="Baris per halaman:"
                       labelDisplayedRows={({ from, to, count }) =>

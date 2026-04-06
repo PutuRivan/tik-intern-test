@@ -28,7 +28,7 @@ export default function MahasiswaPage() {
 
   // Pagination state — MUI TablePagination uses 0-based page index
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [limit, setlimit] = useState(10);
   const [total, setTotal] = useState(0);
 
   const fetchData = useCallback(async () => {
@@ -36,7 +36,7 @@ export default function MahasiswaPage() {
     try {
       const res = await getMahasiswa({
         page: page + 1, // API is 1-based
-        perPage: rowsPerPage,
+        limit: limit,
         search,
         jurusan,
       });
@@ -47,7 +47,7 @@ export default function MahasiswaPage() {
     } finally {
       setLoading(false);
     }
-  }, [page, rowsPerPage, search, jurusan]);
+  }, [page, limit, search, jurusan]);
 
   useEffect(() => {
     fetchData();
@@ -67,8 +67,8 @@ export default function MahasiswaPage() {
     setPage(newPage);
   };
 
-  const handleRowsPerPageChange = (newRowsPerPage: number) => {
-    setRowsPerPage(newRowsPerPage);
+  const handlelimitChange = (newlimit: number) => {
+    setlimit(newlimit);
     setPage(0); // reset to first page when changing rows per page
   };
 
@@ -144,9 +144,9 @@ export default function MahasiswaPage() {
         withPagination
         total={total}
         page={page}
-        rowsPerPage={rowsPerPage}
+        limit={limit}
         onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowsPerPageChange}
+        onlimitChange={handlelimitChange}
         onDelete={handleDelete}
       />
     </section>

@@ -27,7 +27,7 @@ export interface UpdateMahasiswaDTO extends Partial<CreateMahasiswaDTO> {}
 
 export interface GetMahasiswaParams {
   page?: number;
-  perPage?: number;
+  limit?: number;
   search?: string;
   jurusan?: string;
 }

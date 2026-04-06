@@ -20,7 +20,7 @@ export interface CreateMahasiswaDTO {
   nama: string;
   email: string;
   jurusan: Jurusan;
-  tanggal_lahir: string;
+  tanggal_lahir?: string;
 }
 
 export interface UpdateMahasiswaDTO extends Partial<CreateMahasiswaDTO> {}

@@ -38,14 +38,14 @@ export default function ProfilePage() {
 
       <Card>
         <CardContent sx={{ p: 3 }}>
-          <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="mb-4 flex gap-4 sm:flex-row sm:items-center">
             <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white shrink-0">
               <span className="text-2xl font-bold">
                 {user?.name?.charAt(0).toUpperCase() ?? <PersonRounded />}
               </span>
             </div>
             <div className="min-w-0">
-              <h2 className="break-words text-xl font-bold">{user?.name}</h2>
+              <h2 className="wrap-break-word text-xl font-bold">{user?.name}</h2>
               <Chip
                 label={user?.is_active ? "Aktif" : "Tidak Aktif"}
                 color={user?.is_active ? "success" : "error"}

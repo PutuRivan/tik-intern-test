@@ -245,6 +245,14 @@
       "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
       "is_active": false,
       "register_date": "2024-01-12"
+    },
+    {
+      "id": 4,
+      "name": "Putu Rivan",
+      "email": "rivanputu55@gmail.com",
+      "password": "$2b$10$2lgJ0CRvMKqMTAV4IT.Fieo7XvNIgpgXyoxImL3YlkYNoyrZ7jdW2",
+      "is_active": true,
+      "register_date": "2026-04-06"
     }
   ]
 }

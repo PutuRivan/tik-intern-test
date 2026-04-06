@@ -169,7 +169,7 @@ src/
 Data dikelola menggunakan **json-server v0** yang berjalan di `http://localhost:3001`. json-server dipilih karena mendukung operasi REST (GET, POST, PATCH, DELETE), pagination, sorting, dan full-text search secara out-of-the-box tanpa perlu membuat backend sendiri. Data tersimpan di `db.json` sehingga perubahan CRUD bersifat persisten selama server berjalan.
 
 ### Proteksi Route dengan Middleware
-Proteksi halaman dashboard menggunakan **Next.js Middleware** (`middleware.ts`) yang berjalan di sisi server sebelum halaman dirender. Cookie `is_authenticated` di-set melalui API Route saat login dan dihapus saat logout, sehingga middleware selalu membaca status autentikasi yang akurat.
+Proteksi halaman dashboard menggunakan **Next.js Middleware** (`proxy.ts`) yang berjalan di sisi server sebelum halaman dirender. Cookie `is_authenticated` di-set melalui API Route saat login dan dihapus saat logout, sehingga middleware selalu membaca status autentikasi yang akurat.
 
 ### State Management
 **Zustand** digunakan hanya untuk menyimpan data sesi pengguna (`user`, `isAuthenticated`) yang perlu diakses secara global. State UI lokal seperti pencarian, paginasi, dan loading dikelola dengan `useState` di masing-masing komponen — sesuai prinsip *use the right tool for the job*.

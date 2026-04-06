@@ -24,7 +24,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
   const isProfileActive = pathname.startsWith("/profile");
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full min-h-0 flex-col">
       <div className="flex items-center gap-3 border-b border-sidebar-border px-5 py-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary">
           <SchoolIcon fontSize="small" className="text-white" />
@@ -48,63 +48,65 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
         )}
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
-        {menu.map((item) => {
-          const isActive = pathname.startsWith(item.href);
-          const Icon = item.icon;
+      <div className="flex flex-1 min-h-0 flex-col overflow-y-auto">
+        <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
+          {menu.map((item) => {
+            const isActive = pathname.startsWith(item.href);
+            const Icon = item.icon;
 
-          return (
-            <Link key={item.href} href={item.href} onClick={onClose}>
-              <div
-                className={`flex items-center gap-3 rounded-full px-4 py-3 transition-all ${
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent"
-                }`}
-              >
-                <Icon fontSize="small" />
-                <span className="font-medium">{item.label}</span>
-              </div>
-            </Link>
-          );
-        })}
-      </nav>
+            return (
+              <Link key={item.href} href={item.href} onClick={onClose}>
+                <div
+                  className={`flex items-center gap-3 rounded-full px-4 py-3 transition-all ${
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent"
+                  }`}
+                >
+                  <Icon fontSize="small" />
+                  <span className="font-medium">{item.label}</span>
+                </div>
+              </Link>
+            );
+          })}
+        </nav>
 
-      <div className="px-3 pb-4">
-        <Divider sx={{ mb: 2 }} />
+        <div className="px-3 pb-4">
+          <Divider sx={{ mb: 2 }} />
 
-        <Link href="/profile" onClick={onClose}>
-          <div
-            className={`mb-1 flex items-center gap-3 rounded-2xl px-4 py-3 transition-all ${
-              isProfileActive
-                ? "bg-primary text-primary-foreground"
-                : "text-sidebar-foreground hover:bg-sidebar-accent"
-            }`}
-          >
+          <Link href="/profile" onClick={onClose}>
             <div
-              className={`flex aspect-square w-10 shrink-0 items-center justify-center rounded-full ${
-                isProfileActive ? "bg-white" : "bg-primary"
+              className={`mb-1 flex items-center gap-3 rounded-2xl px-4 py-3 transition-all ${
+                isProfileActive
+                  ? "bg-primary text-primary-foreground"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent"
               }`}
             >
-              <span
-                className={`text-sm font-bold ${isProfileActive ? "text-primary" : "text-white"}`}
+              <div
+                className={`flex aspect-square w-10 shrink-0 items-center justify-center rounded-full ${
+                  isProfileActive ? "bg-white" : "bg-primary"
+                }`}
               >
-                {user?.name?.charAt(0).toUpperCase() ?? (
-                  <PersonIcon fontSize="small" />
-                )}
-              </span>
-            </div>
+                <span
+                  className={`text-sm font-bold ${isProfileActive ? "text-primary" : "text-white"}`}
+                >
+                  {user?.name?.charAt(0).toUpperCase() ?? (
+                    <PersonIcon fontSize="small" />
+                  )}
+                </span>
+              </div>
 
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold">
-                {user?.name ?? "User"}
-              </p>
-              <p className="truncate text-xs text-muted-foreground">
-                {user?.email ?? ""}
-              </p>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold">
+                  {user?.name ?? "User"}
+                </p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {user?.email ?? ""}
+                </p>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
     </div>
   );

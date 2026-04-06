@@ -82,6 +82,10 @@ export default function MahasiswaPage() {
       <DashboardHeader
         title="Mahasiswa"
         description="Kelola seluruh data mahasiswa terdaftar"
+        action={{
+          label: 'Tambah Mahasiswa',
+          href: '/mahasiswa/tambah',
+        }}
       />
 
       <div className="flex w-full min-w-0 flex-col gap-4 lg:flex-row lg:items-center">
@@ -122,20 +126,6 @@ export default function MahasiswaPage() {
             ))}
           </Select>
         </FormControl>
-
-        <Button
-          variant="contained"
-          startIcon={<Add />}
-          onClick={() => router.push("/mahasiswa/tambah")}
-          sx={{
-            fontWeight: 600,
-            whiteSpace: "nowrap",
-            width: { xs: "100%", sm: "auto" },
-            flexShrink: 0,
-          }}
-        >
-          Tambah Mahasiswa
-        </Button>
       </div>
 
       <TableMahasiswa

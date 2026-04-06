@@ -39,7 +39,6 @@ interface TableMahasiswaProps {
   limit?: number;
   onPageChange?: (newPage: number) => void;
   onlimitChange?: (newlimit: number) => void;
-  // Delete prop — optional so dashboard doesn't need it
   onDelete?: (id: number) => void;
 }
 

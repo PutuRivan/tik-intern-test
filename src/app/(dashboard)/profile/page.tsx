@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import { logout } from "@/libs/apis/auth";
 import { useAuthStore } from "@/libs/store/auth-store";
+import { formatDate } from "@/libs/utils";
 
 function ProfileRow({ label, value }: { label: string; value: string }) {
   return (
@@ -61,7 +62,7 @@ export default function ProfilePage() {
             <ProfileRow label="Email" value={user?.email ?? "-"} />
             <ProfileRow
               label="Tanggal Daftar"
-              value={user?.register_date ?? "-"}
+              value={formatDate(user?.register_date)}
             />
             <ProfileRow
               label="Status Akun"

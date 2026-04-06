@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import { getMahasiswaById } from "@/libs/apis/mahasiswa";
 import type { Mahasiswa } from "@/libs/types/mahasiswa";
+import { formatDate } from "@/libs/utils";
 
 function GridItems({ title, value }: { title: string; value: string }) {
   return (
@@ -105,12 +106,12 @@ export default function DetailMahasiswaPage() {
             <GridItems title="Jurusan" value={mahasiswa.jurusan} />
             <GridItems
               title="Tanggal Lahir"
-              value={mahasiswa.tanggal_lahir ?? "-"}
+              value={formatDate(mahasiswa.tanggal_lahir)}
             />
-            <GridItems title="Tanggal Daftar" value={mahasiswa.created_at} />
+            <GridItems title="Tanggal Daftar" value={formatDate(mahasiswa.created_at)} />
             <GridItems
               title="Tanggal Diperbaharui"
-              value={mahasiswa.updated_at}
+              value={formatDate(mahasiswa.updated_at)}
             />
           </div>
         </CardContent>

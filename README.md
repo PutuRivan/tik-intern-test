@@ -39,7 +39,7 @@ Aplikasi frontend untuk manajemen data mahasiswa yang dibangun dengan **Next.js*
 ### 1. Clone repositori
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/PutuRivan/tik-intern-test.git
 cd intern-user-test
 ```
 

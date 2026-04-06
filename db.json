@@ -219,36 +219,6 @@
       "tanggal_lahir": "2002-07-31",
       "created_at": "2024-01-27T08:00:00Z",
       "updated_at": "2024-01-27T08:00:00Z"
-    },
-    {
-      "id": 26,
-      "nim": "2410511129",
-      "nama": "testing",
-      "email": "john@gmail.com",
-      "jurusan": "Informatika",
-      "tanggal_lahir": "2026-04-03",
-      "created_at": "2026-04-05T03:12:12.425Z",
-      "updated_at": "2026-04-05T03:12:12.425Z"
-    },
-    {
-      "id": 27,
-      "nim": "2310511129",
-      "nama": "Putu Rivan",
-      "email": "rivanputu55@gmail.com",
-      "jurusan": "Sistem Informasi",
-      "tanggal_lahir": "",
-      "created_at": "2026-04-05T03:14:17.509Z",
-      "updated_at": "2026-04-05T18:03:19.317Z"
-    },
-    {
-      "id": 28,
-      "nim": "2021001001",
-      "nama": "dwa",
-      "email": "dhadwa@gmail.com",
-      "jurusan": "Informatika",
-      "tanggal_lahir": "",
-      "created_at": "2026-04-06T04:19:18.943Z",
-      "updated_at": "2026-04-06T04:19:18.943Z"
     }
   ],
   "users": [
@@ -275,30 +245,6 @@
       "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
       "is_active": false,
       "register_date": "2024-01-12"
-    },
-    {
-      "id": 4,
-      "name": "Putu Rivan",
-      "email": "puturivana.d@gmail.com",
-      "password": "$2b$10$jtH3znWGWhHgeajydVHXAO6qhq0Cg2Sk5T7PVNFS/BS4l9gmyidmO",
-      "is_active": true,
-      "register_date": "2026-04-05"
-    },
-    {
-      "id": 5,
-      "name": "Anggana",
-      "email": "rivanputu55@gmail.com",
-      "password": "$2b$10$YhAxM.fxwPhc.Y.bqY5eOuPOTJYM4ciHmvT50yK/ERPy/C5QDRwIG",
-      "is_active": true,
-      "register_date": "2026-04-05"
-    },
-    {
-      "id": 6,
-      "name": "Putu Rivan",
-      "email": "udhawuidwa@gmail.com",
-      "password": "$2b$10$ldr9c193hWT9DLRzMldGdOfr6uUEc8ek0VD6odVvgFFWheunAzG9q",
-      "is_active": true,
-      "register_date": "2026-04-06"
     }
   ]
 }
